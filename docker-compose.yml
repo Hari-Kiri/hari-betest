@@ -1,0 +1,84 @@
+version: "3"
+name: ms-hari-betest
+services:
+  proxy-betest:
+    # The official v2 Traefik docker image
+    image: traefik:v2.8
+    container_name: proxy-betest
+    restart: always
+    # Enables the web UI and tells Traefik to listen to docker
+    command:
+      # - "--api.insecure=true" # Don't do that in production
+      - "--providers.docker"
+    ports:
+      # The HTTP port
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      # - "8080:8080"
+    volumes:
+      # Tell traefik where is docker socket, so that Traefik can listen to the Docker events
+      - //var/run/docker.sock:/var/run/docker.sock
+  # MongoDB
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: test123
+    depends_on:
+      - proxy-betest
+  # MongoDB client
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: test123
+      ME_CONFIG_MONGODB_URL: mongodb://root:test123@mongo:27017/
+    depends_on:
+      - proxy-betest
+      - mongo
+  # Create api container
+  create-api:
+    image: ms-hari-betest-create-api:latest
+    container_name: create-api
+    restart: always
+    labels:
+      - "traefik.http.routers.create-api.rule=Host(`${LOCALHOST_DOMAIN}`) && Path(`/create`)"
+    depends_on:
+      - proxy-betest
+      - mongo
+  # Read api container
+  read-api:
+    image: ms-hari-betest-read-api:latest
+    container_name: read-api
+    restart: always
+    labels:
+      - "traefik.http.routers.read-api.rule=Host(`${LOCALHOST_DOMAIN}`) && Path(`/read`)"
+    depends_on:
+      - proxy-betest
+      - mongo
+  # Update api container
+  update-api:
+    image: ms-hari-betest-update-api:latest
+    container_name: update-api
+    restart: always
+    labels:
+      - "traefik.http.routers.update-api.rule=Host(`${LOCALHOST_DOMAIN}`) && Path(`/update`)"
+    depends_on:
+      - proxy-betest
+      - mongo
+  # Delete api container
+  delete-api:
+    image: ms-hari-betest-delete-api:latest
+    container_name: delete-api
+    restart: always
+    labels:
+      - "traefik.http.routers.delete-api.rule=Host(`${LOCALHOST_DOMAIN}`) && Path(`/delete`)"
+    depends_on:
+      - proxy-betest
+      - mongo
