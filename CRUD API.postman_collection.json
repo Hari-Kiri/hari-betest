@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "2537d6d7-fa53-4e3a-8e8b-1fea56331a71",
+		"name": "CRUD API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13897416"
+	},
+	"item": [
+		{
+			"name": "Create API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"pratamahari89@gmail.com\",\r\n    \"emailAddress\": \"pratamahari89@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://betest.localhost/create",
+					"protocol": "http",
+					"host": [
+						"betest",
+						"localhost"
+					],
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://betest.localhost/read",
+					"protocol": "http",
+					"host": [
+						"betest",
+						"localhost"
+					],
+					"path": [
+						"read"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "All Data",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://betest.localhost/read",
+							"protocol": "http",
+							"host": [
+								"betest",
+								"localhost"
+							],
+							"path": [
+								"read"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "Filter By Account Number",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://betest.localhost/read?accountNumber=500003",
+							"protocol": "http",
+							"host": [
+								"betest",
+								"localhost"
+							],
+							"path": [
+								"read"
+							],
+							"query": [
+								{
+									"key": "accountNumber",
+									"value": "500003"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "Filter By Identity Number",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://betest.localhost/read?identityNumber=653726561",
+							"protocol": "http",
+							"host": [
+								"betest",
+								"localhost"
+							],
+							"path": [
+								"read"
+							],
+							"query": [
+								{
+									"key": "identityNumber",
+									"value": "653726561"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Update API",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"1688835207960\",\r\n    \"username\": \"pratamahari889@gmail.com\",\r\n    \"emailAddress\": \"pratamahari89@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://betest.localhost/update",
+					"protocol": "http",
+					"host": [
+						"betest",
+						"localhost"
+					],
+					"path": [
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete API",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"1688835207960\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://betest.localhost/delete",
+					"protocol": "http",
+					"host": [
+						"betest",
+						"localhost"
+					],
+					"path": [
+						"delete"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
